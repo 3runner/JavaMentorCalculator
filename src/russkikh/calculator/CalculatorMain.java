@@ -12,25 +12,12 @@ public class CalculatorMain {
         ArabicCalculator arabicCalculator = new ArabicCalculator(typedString);
         String[] stringArray = arabicCalculator.returnArray(arabicCalculator.getTypedString());
 
-        int a = arabicCalculator.stringToInteger(stringArray[0]);
-        int b = arabicCalculator.stringToInteger(stringArray[2]);
-
-        switch (stringArray[1]){
-            case "+":
-                System.out.println(a + b);
-                break;
-            case "-":
-                System.out.println(a - b);
-                break;
-            case "*":
-                System.out.println(a * b);
-                break;
-            case "/":
-                System.out.println(a / b);
-                break;
-        }
-
         arabicCalculator.toString(stringArray);
+        System.out.println("\n");
+
+        arabicCalculator.computation(stringArray);
+
+
 
         reader.close();
     }
