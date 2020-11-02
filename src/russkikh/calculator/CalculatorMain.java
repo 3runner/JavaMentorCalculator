@@ -18,10 +18,12 @@ public class CalculatorMain {
 
             try {
                 RomeCalculator romeCalculator = new RomeCalculator(typedString);
-                romeCalculator.computation(stringArray);
+                int result = romeCalculator.computation(stringArray);
+                System.out.println(RomeCalculator.converterToArabicNumbers(result));
             } catch (IllegalArgumentException e) {
                 ArabicCalculator arabicCalculator = new ArabicCalculator(typedString);
-                arabicCalculator.computation(stringArray);
+                int result = arabicCalculator.computation(stringArray);
+                System.out.println(result);
             }
 
             System.out.println();
