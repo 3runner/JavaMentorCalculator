@@ -7,18 +7,24 @@ import java.io.InputStreamReader;
 public class CalculatorMain {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String typedString = reader.readLine();
+        System.out.println("Запущена программа калькулятор.");
 
-        ArabicCalculator arabicCalculator = new ArabicCalculator(typedString);
-        String[] stringArray = arabicCalculator.returnArray(arabicCalculator.getTypedString());
+        while (true) {
+            System.out.println("Введите выражение для вычисления:");
+            String typedString = reader.readLine();
 
-        arabicCalculator.toString(stringArray);
-        System.out.println("\n");
+            String[] stringArray = AbstractCalculator.returnArray(typedString);
+            System.out.println("Результат операции:");
 
-        arabicCalculator.computation(stringArray);
+            try {
+                RomeCalculator romeCalculator = new RomeCalculator(typedString);
+                romeCalculator.computation(stringArray);
+            } catch (IllegalArgumentException e) {
+                ArabicCalculator arabicCalculator = new ArabicCalculator(typedString);
+                arabicCalculator.computation(stringArray);
+            }
 
-
-
-        reader.close();
+            System.out.println();
+        }
     }
 }

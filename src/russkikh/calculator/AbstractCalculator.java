@@ -12,10 +12,20 @@ public abstract class AbstractCalculator {
     }
 
     //метод для превращения введенной строки в массив строк
-    public String[] returnArray(String s) {
+    //если введенная строка поммещается в массив не из 3 элементов
+    //программа прерывается
+    public static String[] returnArray(String s) {
         //замена множественных пробелов на один + отбрасывание из строки пробелов в начале и в конце
         String typedStringAfterTrim = s.replaceAll("( +)", " ").trim();
         String[] stringArray = typedStringAfterTrim.split(" ");
+        try {
+            if (stringArray.length != 3){
+                throw new IllegalArgumentException("Строка не может быть обработана. Введено слишком много данных.");
+            }
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
         return stringArray;
     }
 
@@ -42,42 +52,29 @@ public abstract class AbstractCalculator {
         return number;
     }
 
-   /* метод проверки арифметического действия,
-    * если второй элемент массива не является арифметическим знаком
-    * выбрасывается исключение */
-    public void isSign (String[] stringArray){
-        String s = stringArray[1];
-        try {
-            if (!s.equals("+") && !s.equals("-") && !s.equals("*") && !s.equals("/")){
-                throw new Exception("В введенной строке нет арифметического действия");
-            }
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
-    }
-
     // метод, выполняющий арифметическое действие
-    public void computation (String[] stringArray){
+    public int computation (String[] stringArray){
         int a = stringToInteger(stringArray[0]);
         int b = stringToInteger(stringArray[2]);
-
-        isSign(stringArray);
+        int result;
 
         switch (stringArray[1]) {
             case "+":
-                System.out.println(a + b);
+                result = a + b;
                 break;
             case "-":
-                System.out.println(a - b);
+                result = a - b;
                 break;
             case "*":
-                System.out.println(a * b);
+                result = a * b;
                 break;
             case "/":
-                System.out.println(a / b);
+                result = a / b;
                 break;
+            default:
+                throw new IllegalStateException("В введенной строке нет арифметического действия");
         }
+        return result;
     }
 
     //метод для визуального тестирования кода при разработке приложения калькулятор
